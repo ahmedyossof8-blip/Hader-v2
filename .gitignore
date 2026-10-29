@@ -1,5 +1,10 @@
-node_modules
-dist
+# ملفات البيئة والمفاتيح الحساسة
 .env
 .env.local
-.env.*.local
+.env.*
+!.env.example
+
+# مجلدات البيلد والكاش
+dist/
+dist-ssr/
+*.local
