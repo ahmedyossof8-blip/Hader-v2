@@ -203,9 +203,35 @@ async function request(endpoint, options = {}) {
         }
       }
 
-      // If token expired or invalid (401), clear stale storage token
-      if (response.status === 401 && authToken) {
+      // If token expired or invalid (401), purge stale auth token and redirect to login
+      if (response.status === 401) {
         setStoredAuthToken(null);
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.removeItem(AUTH_TOKEN_KEY);
+            const userRaw = localStorage.getItem(USER_STORAGE_KEY);
+            if (userRaw) {
+              const u = JSON.parse(userRaw);
+              delete u.token;
+              delete u.accessToken;
+              localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(u));
+            }
+          } catch {
+            // Ignore storage cleanup issues
+          }
+
+          // Broadcast 401 event for active React contexts
+          window.dispatchEvent(
+            new CustomEvent('hader:unauthorized', {
+              detail: { status: 401, message: errorMessage }
+            })
+          );
+
+          // Clean redirect to login if outside auth view
+          if (window.location.pathname !== '/auth' && !window.location.pathname.startsWith('/auth')) {
+            window.location.href = '/auth';
+          }
+        }
       }
 
       throw new ApiError(errorMessage, response.status, errorCode, responseData);

@@ -30,6 +30,20 @@ export function AuthProvider({ children }) {
     }, 4000);
   }, []);
 
+  // Listen for 401 unauthorized purge events from apiClient
+  useEffect(() => {
+    const handleUnauthorized = (e) => {
+      setUser(DEFAULT_STUDENT);
+      const msg = e?.detail?.message || 'انتهت صلاحية الجلسة الأكاديمية، يُرجى تسجيل الدخول مجدداً';
+      triggerToast(msg, 'error');
+    };
+
+    window.addEventListener('hader:unauthorized', handleUnauthorized);
+    return () => {
+      window.removeEventListener('hader:unauthorized', handleUnauthorized);
+    };
+  }, [triggerToast]);
+
   const login = async ({ identifier, password, role }) => {
     try {
       const loggedIn = await authService.login({ identifier, password, role });

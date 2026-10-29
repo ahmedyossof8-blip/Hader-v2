@@ -4,9 +4,9 @@
  * Provides timetable queries, search, filter, and upcoming lecture calculations
  */
 
-import { scheduleData } from '../data/scheduleData';
-import { getSmartInitialDay, getTodayAcademicKey } from '../utils/dateUtils';
-import { apiClient } from './apiClient';
+import { scheduleData } from '../data/scheduleData.js';
+import { getSmartInitialDay, getTodayAcademicKey } from '../utils/dateUtils.js';
+import { apiClient } from './apiClient.js';
 
 export const scheduleService = {
   /**

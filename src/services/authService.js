@@ -4,9 +4,9 @@
  * Handles hardware lock, Supabase token synchronization, and offline fallback.
  */
 
-import { apiClient, setStoredAuthToken, USER_STORAGE_KEY } from './apiClient';
-import { DEFAULT_STUDENT, DEFAULT_LEADER } from '../data/mockUserData';
-import { getDeviceFingerprint } from '../utils/deviceUtils';
+import { apiClient, setStoredAuthToken, USER_STORAGE_KEY } from './apiClient.js';
+import { DEFAULT_STUDENT, DEFAULT_LEADER } from '../data/mockUserData.js';
+import { getDeviceFingerprint } from '../utils/deviceUtils.js';
 
 // Helper to map academic division to department ID in Go backend
 function mapDivisionToDeptId(divisionKey) {

@@ -4,10 +4,10 @@
  * Implements GPS geofencing, dynamic TOTP token validation, offline sync, and security telemetry.
  */
 
-import { CAMPUS_COORDINATES, calculateHaversineDistance } from '../utils/geoUtils';
-import { INITIAL_INCIDENTS } from '../data/mockIncidentsData';
-import { apiClient } from './apiClient';
-import { getDeviceFingerprint } from '../utils/deviceUtils';
+import { CAMPUS_COORDINATES, calculateHaversineDistance } from '../utils/geoUtils.js';
+import { INITIAL_INCIDENTS } from '../data/mockIncidentsData.js';
+import { apiClient } from './apiClient.js';
+import { getDeviceFingerprint } from '../utils/deviceUtils.js';
 
 const ATTENDANCE_HISTORY_KEY = 'hader_attendance_history';
 const INCIDENTS_KEY = 'hader_incidents';
